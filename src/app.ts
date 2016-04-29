@@ -5,15 +5,7 @@ import {BasicComponent} from "./components/basic.component";
 
 @Component({
   selector: 'app',
-  template: `
-    <div class="container">
-      <h2>Reactive Angular2</h2>
-      <div>
-        <a [routerLink]="['BasicDemo']">Basic</a>
-      </div>
-      <router-outlet></router-outlet>
-    </div>
-  `,
+  templateUrl: './app.component.html',
   directives: [ROUTER_DIRECTIVES],
   providers: [ROUTER_PROVIDERS]
 })

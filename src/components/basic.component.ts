@@ -4,7 +4,7 @@ import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'basic',
-  template: ``
+  template: `<h2>Basic example</h2>`
 })
 
 export class BasicComponent {
