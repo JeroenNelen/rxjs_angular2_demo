@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core'
 import {Observable} from "rxjs/Rx";
+import {Subscriber} from "rxjs/Rx";
 
 @Component({
   selector: 'basic',
@@ -11,17 +12,17 @@ export class BasicComponent {
   constructor() {
 
     // Create the observable
-    let observable$ = new Observable((observer) => {
-      observer.next(1);
-      observer.next(2);
-      observer.next(3);
-      observer.next(4);
-      observer.next(5);
+    let stream$ = new Observable((sink: Subscriber) => {
+      sink.next(1);
+      sink.next(2);
+      sink.next(3);
+      sink.next(4);
+      sink.next(5);
 
-      observer.complete();
+      sink.complete();
     });
 
-    observable$
+    stream$
       .map((x: number) => x * 3)
       .filter(x => x % 2 === 0)
       .subscribe(
