@@ -1,10 +1,11 @@
-# ngnl_demos
-Demo code from my keynote at NGNL 2016. Slides [here](https://docs.google.com/presentation/d/1dC4oyxrE5IqDSJpKI_akszfFgBx24vC7YDYzmbrvnmM/edit?usp=sharing)
+# MJR RXJS Observables demp
 
-## instructions
+Demo application for the MJR session about Reactive Programming and Observables
+
+## How to install
 
 - clone this repo
 - `npm install`
-- `npm install -g typings`
+- `npm install -g typings webpack webpack-dev-server`
 - `typings install`
 - `npm start`
