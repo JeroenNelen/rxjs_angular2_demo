@@ -12,7 +12,7 @@ export class BasicComponent {
   constructor() {
 
     // Create the observable
-    let stream$ = new Observable((sink: Subscriber) => {
+    let stream$ = new Observable((sink: Subscriber<any>) => {
       sink.next(1);
       sink.next(2);
       sink.next(3);
@@ -24,7 +24,7 @@ export class BasicComponent {
 
     stream$
       .map((x: number) => x * 3)
-      .filter(x => x % 2 === 0)
+      .filter((x: number) => x % 2 === 0)
       .subscribe(
         (value) => console.log(value),
         (error) => console.log('error = ', error),
