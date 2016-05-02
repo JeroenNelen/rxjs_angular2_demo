@@ -1,6 +1,5 @@
 import {Component} from 'angular2/core'
-import {Observable} from "rxjs/Rx";
-import {Subscriber} from "rxjs/Rx";
+import {Observable, Subscriber} from "rxjs/Rx";
 
 @Component({
   selector: 'basic',
