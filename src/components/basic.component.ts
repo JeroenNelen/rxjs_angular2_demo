@@ -10,24 +10,37 @@ export class BasicComponent {
 
   constructor() {
 
-    // Create the observable
-    let stream$ = new Observable((sink: Subscriber<any>) => {
-      sink.next(1);
-      sink.next(2);
-      sink.next(3);
-      sink.next(4);
-      sink.next(5);
+    // 1. Create a promise vs. create an observable
+    // Emit a single value
 
-      sink.complete();
+    // Create the promise
+    let promise = new Promise((resolve) => {
+      setTimeout(() => {
+        console.log('Promise resolved');
+        resolve(10);
+      }, 2000);
     });
 
-    stream$
-      .map((x: number) => x * 3)
-      .filter((x: number) => x % 2 === 0)
-      .subscribe(
-        (value) => console.log(value),
-        (error) => console.log('error = ', error),
-        () => console.log('Stream completed')
-      )
+    // Create the observable
+    let observable = new Observable((observer) => {
+      let timeoutId = setTimeout(() => {
+        console.log('Observer emitted a value');
+        observer.next(20);
+      }, 2000);
+
+      return () => {
+        console.log('Observable tear down');
+        clearTimeout(timeoutId);
+      };
+    });
+
+    // Execute
+    promise.then((value) => console.log(value));
+    let disposable = observable.subscribe((value) => console.log(value));
+
+    // Tear down
+    setTimeout(() => {
+      disposable.unsubscribe();
+    }, 1000);
   }
 }
