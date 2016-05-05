@@ -1,6 +1,6 @@
 import {Component, Inject} from 'angular2/core'
-import {Observable, Subscriber} from "rxjs/Rx";
 import {Http, HTTP_PROVIDERS} from "angular2/http";
+import "rxjs/Rx";
 
 const API_URL = 'http://jsonplaceholder.typicode.com/posts';
 
@@ -14,42 +14,40 @@ export class BasicComponent {
 
   constructor(@Inject(Http) private _http: Http) {
 
-    // 1. Create a promise vs. create an observable
-    // Emit a single value
+    // Live coding #1 - gelijkenissen tussen promise en observable
+    // Aanmaken
+    // Waarde ontvangen
+    // Error opvangen
+    // Completie opvangen
 
-    // Create the promise
-    let promise = new Promise((resolve) => {
-      setTimeout(() => {
-        console.log('Promise resolved');
-        resolve(10);
-      }, 2000);
-    });
+    // Live coding
 
-    // Create the observable
-    let observable = new Observable((observer) => {
-      let timeoutId = setTimeout(() => {
-        console.log('Observer emitted a value');
-        observer.next(20);
-      }, 2000);
+    /*let observable = new Observable((subscriber) => {
 
-      return () => {
-        console.log('Observable tear down');
+      // Setup
+      var timeoutId = setTimeout(() => {
+        console.log('Observable emitted value');
+        subscriber.next(20);
+        subscriber.next(30);
+        subscriber.complete();
+      }, 1000);
+
+      // Tear down
+      return () =>  {
         clearTimeout(timeoutId);
-      };
-    });
+      }
+    });*/
 
-    let httpObservable = this._http.get(API_URL);
+    let observable = this._http.get(API_URL).retryWhen(error => error.delay(500));
 
-    // Execute
-    promise.then((value) => console.log(value));
-    let disposable = httpObservable
-      .retry()
-      .map(x => x.json())
-      .subscribe((value) => console.log(value));
+    let disposable = observable.subscribe(
+      (value) => console.log(value.json()),     // .then
+      (error) => console.warn(error),           // .catch
+      () => console.log('Stream completed')
+    );
 
-    // Tear down
-    // setTimeout(() => {
-    //   disposable.unsubscribe();
-    // }, 1000);
+    /*setTimeout(() => {
+      disposable.unsubscribe();
+    }, 500);*/
   }
 }
