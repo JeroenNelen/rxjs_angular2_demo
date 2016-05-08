@@ -64,8 +64,10 @@ export class PokemonComponent implements OnInit {
       // Convert response to json
       .map((response: Response) => response.json())
 
+      // Only emit every 2 seconds
       .bufferTime(2000)
 
+      // Flatten our array
       .flatMap(x => x)
 
       // Get the results
