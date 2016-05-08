@@ -6,6 +6,7 @@ import {TypeaheadComponent} from "./components/typeahead.component";
 import {GithubComponent} from "./components/github.component";
 import {PokemonComponent} from "./components/pokemon.component";
 import {CreationComponent} from "./components/creation.component";
+import {OperationComponent} from "./components/operation.component";
 
 @Component({
   selector: 'app',
@@ -21,6 +22,7 @@ import {CreationComponent} from "./components/creation.component";
           <ul class="nav navbar-nav">
             <li><a [routerLink]="['BasicDemo']">Basic</a></li>
             <li><a [routerLink]="['CreationDemo']">Creation</a></li>
+            <li><a [routerLink]="['OperationDemo']">Operations</a></li>
             <li><a [routerLink]="['TypeaheadDemo']">Typeahead</a></li>
             <li><a [routerLink]="['GithubDemo']">Github</a></li>
             <li><a [routerLink]="['PokemonDemo']">Pokemon</a></li>
@@ -65,6 +67,12 @@ import {CreationComponent} from "./components/creation.component";
     name: 'CreationDemo',
     component: CreationComponent,
     path: '/creation'
+  },
+
+  {
+    name: 'OperationDemo',
+    component: OperationComponent,
+    path: '/operation'
   }
 
 ])
