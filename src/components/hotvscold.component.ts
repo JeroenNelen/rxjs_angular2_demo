@@ -29,10 +29,10 @@ export class HotvscoldComponent {
     //   .publish()
     //   .refCount();
 
-    counter.subscribe(v => console.log("first: ", v));
-
-    setTimeout(() => {
-      counter.subscribe(v => console.log("second: ", v));
-    }, 5000);
+    // counter.subscribe(v => console.log("first: ", v));
+    //
+    // setTimeout(() => {
+    //   counter.subscribe(v => console.log("second: ", v));
+    // }, 5000);
   }
 }
