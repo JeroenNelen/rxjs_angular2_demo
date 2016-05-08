@@ -7,6 +7,7 @@ import {GithubComponent} from "./components/github.component";
 import {PokemonComponent} from "./components/pokemon.component";
 import {CreationComponent} from "./components/creation.component";
 import {OperationComponent} from "./components/operation.component";
+import {HotvscoldComponent} from "./components/hotvscold.component";
 
 @Component({
   selector: 'app',
@@ -23,6 +24,7 @@ import {OperationComponent} from "./components/operation.component";
             <li><a [routerLink]="['BasicDemo']">Basic</a></li>
             <li><a [routerLink]="['CreationDemo']">Creation</a></li>
             <li><a [routerLink]="['OperationDemo']">Operations</a></li>
+            <li><a [routerLink]="['HotvscoldDemo']">Hot vs cold</a></li>
             <li><a [routerLink]="['TypeaheadDemo']">Typeahead</a></li>
             <li><a [routerLink]="['GithubDemo']">Github</a></li>
             <li><a [routerLink]="['PokemonDemo']">Pokemon</a></li>
@@ -73,7 +75,13 @@ import {OperationComponent} from "./components/operation.component";
     name: 'OperationDemo',
     component: OperationComponent,
     path: '/operation'
+  },
+
+  {
+    name: 'HotvscoldDemo',
+    component: HotvscoldComponent,
+    path: '/hotvscold'
   }
 
 ])
-export class App {}
+export class App { }
