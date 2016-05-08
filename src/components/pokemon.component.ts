@@ -30,45 +30,9 @@ export class PokemonComponent implements OnInit {
 
   ngOnInit() {
 
+    // Button element
     let buttonElem = document.getElementById('button');
 
-    // Create an observable when clicking
-    let buttonClickStream = Observable.fromEvent(buttonElem, 'click');   // the button
-    let windowClickStream = Observable.fromEvent(window, 'click');      // the window
-
-    // Reset stream
-    Observable.merge(buttonClickStream, windowClickStream).subscribe(() => this.pokemons = []);
-
-    // Execute when clicking the button
-    buttonClickStream
-
-      // Prevent spam clicking the button
-      .debounceTime(300)
-
-      // Fetch a list of pokemons
-      .switchMap(() => this._http.get(API_URL))
-
-      // Convert response to json & get the results array
-      .flatMap((response: Response) => response.json().results)
-
-      // Filter out pokemons who's name contains the letter 'a'
-      .filter((result: any) => {
-        return result.name.indexOf('a') !== -1
-      })
-
-      // Fetch details for these pokemon
-      .flatMap((result: any) => this._http.get(result.url))
-
-      // Convert response to json
-      .map((response: Response) => response.json())
-
-      // Only emit every 2 seconds
-      .bufferTime(2000)
-
-      // Flatten our array
-      .flatMap(x => x)
-
-      // Get the results
-      .subscribe((pokemon:any) => this.pokemons.push(pokemon));
+    // Write code here
   }
 }
