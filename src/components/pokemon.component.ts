@@ -37,10 +37,13 @@ export class PokemonComponent implements OnInit {
     let windowClickStream = Observable.fromEvent(window, 'click');      // the window
 
     // Reset stream
-    let resetStream = Observable.merge(buttonClickStream, windowClickStream);
+    Observable.merge(buttonClickStream, windowClickStream).subscribe(() => this.pokemons = []);
 
     // Execute when clicking the button
     buttonClickStream
+
+      // Prevent spam clicking the button
+      .debounceTime(300)
 
       // Fetch a list of pokemons
       .switchMap(() => this._http.get(API_URL))
@@ -67,12 +70,5 @@ export class PokemonComponent implements OnInit {
 
       // Get the results
       .subscribe((pokemon:any) => this.pokemons.push(pokemon));
-
-    // Reset when clicking the button or window + prevent spam clicking
-    resetStream
-      .debounceTime(100)
-      .subscribe(() => {
-        this.pokemons = []
-      });
   }
 }
