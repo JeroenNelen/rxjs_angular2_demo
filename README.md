@@ -1,4 +1,4 @@
-# MJR RXJS Observables demp
+# MJR RXJS Observables demo
 
 Demo application for the MJR session about Reactive Programming and Observables
 
