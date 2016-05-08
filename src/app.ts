@@ -3,6 +3,7 @@ import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router'
 
 import {BasicComponent} from "./components/basic.component";
 import {TypeaheadComponent} from "./components/typeahead.component";
+import {GithubComponent} from "./components/github.component";
 
 @Component({
   selector: 'app',
@@ -18,11 +19,12 @@ import {TypeaheadComponent} from "./components/typeahead.component";
           <ul class="nav navbar-nav">
             <li><a [routerLink]="['BasicDemo']">Basic</a></li>
             <li><a [routerLink]="['TypeaheadDemo']">Typeahead</a></li>
+            <li><a [routerLink]="['GithubDemo']">Github</a></li>
           </ul>
         </div>
       </div>
     </nav>
-    
+
     <div class="container">
       <router-outlet></router-outlet>
     </div>
@@ -41,6 +43,12 @@ import {TypeaheadComponent} from "./components/typeahead.component";
     name: 'TypeaheadDemo',
     component: TypeaheadComponent,
     path: '/typeahead'
+  },
+
+  {
+    name: 'GithubDemo',
+    component: GithubComponent,
+    path: '/github'
   }
 
 ])
