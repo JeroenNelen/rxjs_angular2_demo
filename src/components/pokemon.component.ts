@@ -39,11 +39,6 @@ export class PokemonComponent implements OnInit {
     // Reset stream
     let resetStream = Observable.merge(buttonClickStream, windowClickStream);
 
-    // Reset when clicking the button or window + prevent spam clicking
-    resetStream
-      .debounceTime(100)
-      .subscribe(() => this.pokemons = []);
-
     // Execute when clicking the button
     buttonClickStream
 
@@ -53,7 +48,7 @@ export class PokemonComponent implements OnInit {
       // Convert response to json & get the results array
       .flatMap((response: Response) => response.json().results)
 
-      // Filter out pokemons who's name start with a 'c'
+      // Filter out pokemons who's name contains the letter 'a'
       .filter((result: any) => {
         return result.name.indexOf('a') !== -1
       })
@@ -72,5 +67,12 @@ export class PokemonComponent implements OnInit {
 
       // Get the results
       .subscribe((pokemon:any) => this.pokemons.push(pokemon));
+
+    // Reset when clicking the button or window + prevent spam clicking
+    resetStream
+      .debounceTime(100)
+      .subscribe(() => {
+        this.pokemons = []
+      });
   }
 }
