@@ -4,6 +4,7 @@ import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router'
 import {BasicComponent} from "./components/basic.component";
 import {TypeaheadComponent} from "./components/typeahead.component";
 import {GithubComponent} from "./components/github.component";
+import {PokemonComponent} from "./components/pokemon.component";
 
 @Component({
   selector: 'app',
@@ -20,6 +21,7 @@ import {GithubComponent} from "./components/github.component";
             <li><a [routerLink]="['BasicDemo']">Basic</a></li>
             <li><a [routerLink]="['TypeaheadDemo']">Typeahead</a></li>
             <li><a [routerLink]="['GithubDemo']">Github</a></li>
+            <li><a [routerLink]="['PokemonDemo']">Pokemon</a></li>
           </ul>
         </div>
       </div>
@@ -49,6 +51,12 @@ import {GithubComponent} from "./components/github.component";
     name: 'GithubDemo',
     component: GithubComponent,
     path: '/github'
+  },
+
+  {
+    name: 'PokemonDemo',
+    component: PokemonComponent,
+    path: '/gotta-catch-em-all'
   }
 
 ])

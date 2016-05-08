@@ -27,17 +27,12 @@ const makeURL = (query) => `${BASE_URL}?q=${query}&part=snippet&key=${API_TOKEN}
 })
 export class TypeaheadComponent {
 
-  videos: Observable<any []>;
-  searchInput = new Control();
+  videos: Observable<any []>;   // array of videos
+  searchInput = new Control();  // search input control
 
   constructor(@Inject(Http) private _http: Http) {
 
-    this.videos = this.searchInput.valueChanges
-      .debounceTime(200)
-      .map(query => makeURL(query))
-      .switchMap(url => this._http.get(url))
-      .map((res: Response) => res.json())
-      .map(response => response.items);
+    // Write code here
 
   }
 }
