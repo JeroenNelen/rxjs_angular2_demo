@@ -15,7 +15,7 @@ const getNewestThreads = (responseJSON) => responseJSON.data.children;
 </p>
 
 <div *ngIf="threads.length">
-  <p>Latest threads threads:</p>
+  <p>Latest threads created on Reddit:</p>
   
   <table class="table table-bordered table-condensed">
       <thead>
