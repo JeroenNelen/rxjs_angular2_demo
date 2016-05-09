@@ -66,14 +66,14 @@ export class RedditComponent implements OnInit {
       // Only show threads that dont have negative upvotes
       .filter((thread:any) => thread.data.ups >= 0)
 
-      // Only trigger if comments changed
-      .distinctUntilChanged()
-
       // Show a maximum of 10 threads
       .take(10)
 
       // Group together and emit every 5 seconds
-      .bufferTime(5000);
+      .bufferTime(5000)
+
+      // Only trigger if comments changed
+      .distinctUntilChanged();
 
     // Ticker stream
     let intervalStream = Observable.interval(5000);
