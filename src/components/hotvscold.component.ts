@@ -18,10 +18,40 @@ import 'rxjs/add/operator/distinct';
 export class HotvscoldComponent {
 
   constructor() {
+    // cold counter
+
+    // hot counter
+
+    // first subscriber
+
+    // second subscriber after setTimeout
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // ################## cold
-    let counter = Observable.interval(1000)
-      .take(10);
+    // let counter = Observable.interval(1000)
+    //   .take(10);
 
     // ################## hot
     // let counter = Observable.interval(1000)

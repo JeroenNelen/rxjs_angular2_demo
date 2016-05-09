@@ -18,6 +18,51 @@ export class CreationComponent implements OnInit {
   constructor() {
     //######################################################
     // Observable.create
+
+    //######################################################
+    // Observable.from / fromPromise
+
+    //######################################################
+    // Observable.interval
+
+    //######################################################
+    // Observable.range
+
+    
+    // show fromEvent mouse click
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //######################################################
+    // Observable.create
     let createObservable = Observable.create(observer => {
         // values to emit via next
         observer.next(1);
