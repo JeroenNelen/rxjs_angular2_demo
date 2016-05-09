@@ -41,8 +41,7 @@ export class RedditComponent implements OnInit {
   buttonClicked:EventEmitter<any> = new EventEmitter();
   pollingStreamDisposable = undefined;
 
-  constructor(@Inject(Http) private _http:Http) {
-  }
+  constructor(@Inject(Http) private _http:Http) {}
 
   ngOnInit() {
 
@@ -64,8 +63,8 @@ export class RedditComponent implements OnInit {
       // Only show threads that dont have negative upvotes
       .filter((thread:any) => thread.data.ups >= 0)
 
-      // Show a maximum of 5 threads
-      .take(5)
+      // Show a maximum of 10 threads
+      .take(10)
 
       // Group together and emit every 5 seconds
       .bufferTime(5000);
