@@ -50,28 +50,40 @@ export class StarwarsComponent implements OnInit {
       // Prevent spam clicking
       .debounceTime(300)
 
-      // Fetch movies from SWAPI
-      .switchMap(() => this._http.get(API_URL_SWAPI))
+      // Fetch movies from SWAPI & retry every 2 seconds
+      .switchMap(() => {
+
+        // Get movies from SWAPI
+        return this._http.get(API_URL_SWAPI)
+
+          // Retry evey 2 seconds when there is no connection available
+          .retryWhen((errors) => errors.delay(2000));
+
+      })
 
       // Convert response to JSON
-      .map((response: Response) => response.json())
+      .map((swApiResponse: Response) => swApiResponse.json())
 
       // Take out the 'results' array & flatten it to separate items
-      .flatMap((response: any) => response.results)
+      .flatMap((swApiResponseJSON: any) => {
 
-      // Get detailed information for each of the movies
-      .flatMap((movie: any) => this._http.get(getMovieDetailsURL(movie.title)))
+        return Observable.from(swApiResponseJSON.results)
 
-      // Convert response to JSON
-      .map((response: Response) => response.json())
+          // Get details for each movie and map to separate stream
+          .flatMap((movie:any) => this._http.get(getMovieDetailsURL(movie.title)))
 
-      // Take out the first item in the 'Search' array
-      .map((response: any) => response.Search[0])
+          // Convert response to JSON
+          .map((omdbResponse: Response) => omdbResponse.json())
 
-      // Filter out the movies where Type is 'movie'
-      .filter((movie: any) => movie.Type === 'movie')
+          // Only take the first item from the 'Search' array
+          .map((omdbResponseJSON: any) => omdbResponseJSON.Search[0])
+
+          // Wait untill all the movies are loaded
+          .bufferCount(swApiResponseJSON.count);
+
+      })
 
       // Set the movies
-      .subscribe((movie: any) => this.movies.push(movie));
+      .subscribe((movies: any) => this.movies = movies);
   }
 }
