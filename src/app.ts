@@ -7,7 +7,6 @@ import {GithubComponent} from "./components/github.component";
 import {CreationComponent} from "./components/creation.component";
 import {OperationComponent} from "./components/operation.component";
 import {HotvscoldComponent} from "./components/hotvscold.component";
-import {StarwarsComponent} from "./components/starwars.component";
 
 @Component({
   selector: 'app',
@@ -27,7 +26,6 @@ import {StarwarsComponent} from "./components/starwars.component";
             <li><a [routerLink]="['HotvscoldDemo']">Hot vs cold</a></li>
             <li><a [routerLink]="['TypeaheadDemo']">Typeahead</a></li>
             <li><a [routerLink]="['GithubDemo']">Github</a></li>
-            <li><a [routerLink]="['StarwarsDemo']">Star Wars</a></li>
           </ul>
         </div>
       </div>
@@ -75,12 +73,6 @@ import {StarwarsComponent} from "./components/starwars.component";
     name: 'HotvscoldDemo',
     component: HotvscoldComponent,
     path: '/hot-vs-cold'
-  },
-
-  {
-    name: 'StarwarsDemo',
-    component: StarwarsComponent,
-    path: '/star-wars'
   }
 
 ])
