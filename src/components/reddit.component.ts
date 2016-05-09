@@ -3,10 +3,8 @@ import {Http, HTTP_PROVIDERS, Response} from "angular2/http";
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Rx";
 
-const API_URL_NEW = 'https://api.reddit.com/r/funny?sort=new&limit=1&dept=1';
-const createCommentsURL = (subreddit, id) => `https://api.reddit.com/r/${subreddit}/comments/${id}?dept=1&showmore=false&sort=new&context=0`;
-const getComments = (commentsResponse) => commentsResponse[1].data.children;
-
+const API_URL_NEW = 'https://api.reddit.com/new?dept=1&sort=new';
+const getNewestThreads = (responseJSON) => responseJSON.data.children;
 @Component({
   selector: 'reddit',
   providers: [HTTP_PROVIDERS],
@@ -16,30 +14,30 @@ const getComments = (commentsResponse) => commentsResponse[1].data.children;
   <button class="btn btn-primary" id="button" name="button" (click)="buttonClicked.emit($event)">Start/Stop polling</button>
 </p>
 
-<div *ngIf="comments.length">
-  <p>Newest comments in the most recent thread of /r/{{ comments[0].data.subreddit }}:</p>
+<div *ngIf="threads.length">
+  <p>Latest threads threads:</p>
   
-  <div style="max-height: 300px; overflow-y: scroll;">
-    <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-condensed">
       <thead>
         <tr>
           <th>Author</th>
-          <th>Comment</th>
+          <th>Title</th>
           <th>Upvotes</th>
+          <th>Subreddit</th>
         </tr>
       </thead>
-      <tr *ngFor="#comment of comments">
-        <td>{{ comment.data.author }}</td>
-        <td>{{ comment.data.body }}</td>
-        <td>{{ comment.data.ups }}</td>
+      <tr *ngFor="#thread of threads">
+        <td>{{ thread.data.author }}</td>
+        <td>{{ thread.data.title }}</td>
+        <td>{{ thread.data.ups }}</td> 
+        <td>{{ thread.data.subreddit }}</td>
       </tr> 
     </table>
-  </div>
 </div>`
 })
 export class RedditComponent implements OnInit {
 
-  comments:Array<any> = [];
+  threads:Array<any> = [];
   buttonClicked:EventEmitter<any> = new EventEmitter();
   pollingStreamDisposable = undefined;
 
@@ -54,23 +52,23 @@ export class RedditComponent implements OnInit {
       // Convert to JSON
       .map((response:Response) => response.json())
 
-      // Get the top post
-      .map((responseJSON:any) => responseJSON.data.children[0].data)
+      // Get the newest threads
+      .flatMap((responseJSON:any) => getNewestThreads(responseJSON))
 
-      // Create the URL
-      .map((threadInfo:any) => createCommentsURL(threadInfo.subreddit, threadInfo.id))
+      // Don't show NSFW threads
+      .filter((thread:any) => thread.data.over_18 === false)
 
-      // Fetch the comments for the top post
-      .switchMap((url:string) => this._http.get(url))
-
-      // Convert to JSON
-      .map((response:Response) => response.json())
-
-      // Get all the comments from this thread
-      .map((data:any) => getComments(data))
+      // Only show threads with atleast 1 upvote
+      .filter((thread:any) => thread.data.ups > 0)
 
       // Only trigger if comments changed
-      .distinctUntilChanged();
+      .distinctUntilChanged()
+
+      // Show a maximum of 5 threads
+      .take(5)
+
+      // Group together and emit every 5 seconds
+      .bufferTime(5000);
 
     // Ticker stream
     let intervalStream = Observable.interval(5000);
@@ -85,16 +83,16 @@ export class RedditComponent implements OnInit {
       .debounceTime(300)
 
       .subscribe(() => {
-      if (this.pollingStreamDisposable) {
-        this.pollingStreamDisposable.unsubscribe();
-        this.pollingStreamDisposable = undefined;
-      } else {
-        this.pollingStreamDisposable = pollingStream.subscribe((comments:Array<any>) => {
-          console.log(comments);
-          this.comments = comments;
-        });
-      }
-    });
+        if (this.pollingStreamDisposable) {
+          this.pollingStreamDisposable.unsubscribe();
+          this.pollingStreamDisposable = undefined;
+        } else {
+          this.pollingStreamDisposable = pollingStream.subscribe((threads:Array<any>) => {
+            console.log(threads);
+            this.threads = threads;
+          });
+        }
+      });
   }
 
 }
