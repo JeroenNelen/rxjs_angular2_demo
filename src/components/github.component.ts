@@ -1,35 +1,41 @@
-import {Component, OnInit, EventEmitter} from 'angular2/core'
-import {Http, HTTP_PROVIDERS} from "angular2/http";
+import {Component, OnInit, Inject} from 'angular2/core'
+import {Control} from 'angular2/common'
+import {Http, Response, HTTP_PROVIDERS} from "angular2/http";
 import {Observable} from 'rxjs/Rx'
 
-const API_URL = 'http://jsonplaceholder.typicode.com/posts';
+const API_URL = 'https://api.github.com/search/users';
+const makeURL = (query) => `${API_URL}?q=${query}`
 
 @Component({
   selector: 'github',
+  providers: [HTTP_PROVIDERS],
   template: `<div class="container">
     <div class="header">
-         <h2>Who to follow</h2><a href="#" class="refresh">Refresh</a>
+         <h2>Who's following our first result</h2>
     </div>
-    <button id="tester"> This is clickable</button>
-    <button (click)="clickStream.emit($event)"> This is clickable</button>
+    <input type="text" placeholder="search github..." class="form-control" [ngFormControl]="searchInput">
+    <div *ngIf="match.login" class="row">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <h2><a [href]="match.html_url" >{{ match.login }}</a></h2>
+        <img [src]="match.avatar_url" class="img-responsive thumbnail">
+      </div>
+    </div>
+    <div *ngIf="match.login" class="row">
+    <h2>{{ match.login }}'s followers:</h2>
+      <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="#follower of followers">
+        <img [src]="follower.avatar_url" class="img-responsive thumbnail">
+        <p><a [href]="follower.html_url" >{{ follower.login}}</a></p>
+      </div>
+    </div>
 </div>`
 })
 
-export class GithubComponent implements OnInit {
-  button: any;
-  click: any;
-  clickStream: EventEmitter<any>;
+export class GithubComponent {
+  searchInput = new Control();
+  followers: Observable<any []>;
+  match: any;
 
-  constructor() {
-    this.clickStream = new EventEmitter();
-  }
-
-  ngOnInit() {
-    this.button = document.getElementById('tester');
-    console.log("constructor: ", this.button);
-    this.click = Observable.fromEvent(this.button,'click')
-      .subscribe(v => console.log("click: ",v));
-
-    this.clickStream.subscribe(v => console.log("eventEmitter: ", v));
+  constructor(@Inject(Http) private _http: Http) {
+    // code here
   }
 }
