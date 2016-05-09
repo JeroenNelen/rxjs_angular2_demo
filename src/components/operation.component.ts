@@ -103,7 +103,7 @@ export class OperationComponent implements OnInit {
     // sample
     // let debounceSource = Observable.interval(100)
     //   .take(21)
-    //   .sample(Observable.interval(200))
+    //   .sampleTime(200)
     //   .subscribe(v => console.log(v));
 
     //######################################################

@@ -28,7 +28,7 @@ export class CreationComponent implements OnInit {
     //######################################################
     // Observable.range
 
-    
+
     // show fromEvent mouse click
 
 
