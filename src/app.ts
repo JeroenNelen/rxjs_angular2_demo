@@ -4,7 +4,6 @@ import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router'
 import {BasicComponent} from "./components/basic.component";
 import {TypeaheadComponent} from "./components/typeahead.component";
 import {GithubComponent} from "./components/github.component";
-import {PokemonComponent} from "./components/pokemon.component";
 import {CreationComponent} from "./components/creation.component";
 import {OperationComponent} from "./components/operation.component";
 import {HotvscoldComponent} from "./components/hotvscold.component";
@@ -27,7 +26,6 @@ import {HotvscoldComponent} from "./components/hotvscold.component";
             <li><a [routerLink]="['HotvscoldDemo']">Hot vs cold</a></li>
             <li><a [routerLink]="['TypeaheadDemo']">Typeahead</a></li>
             <li><a [routerLink]="['GithubDemo']">Github</a></li>
-            <li><a [routerLink]="['PokemonDemo']">Pokemon</a></li>
           </ul>
         </div>
       </div>
@@ -60,12 +58,6 @@ import {HotvscoldComponent} from "./components/hotvscold.component";
   },
 
   {
-    name: 'PokemonDemo',
-    component: PokemonComponent,
-    path: '/gotta-catch-em-all'
-  },
-
-  {
     name: 'CreationDemo',
     component: CreationComponent,
     path: '/creation'
@@ -80,7 +72,7 @@ import {HotvscoldComponent} from "./components/hotvscold.component";
   {
     name: 'HotvscoldDemo',
     component: HotvscoldComponent,
-    path: '/hotvscold'
+    path: '/hot-vs-cold'
   }
 
 ])
