@@ -80,7 +80,11 @@ export class RedditComponent implements OnInit {
     let pollingStream = fetchStream.merge(intervalStream.switchMap(() => fetchStream));
 
     // Button clicked stream
-    this.buttonClicked.subscribe(() => {
+    this.buttonClicked
+
+      .debounceTime(300)
+
+      .subscribe(() => {
       if (this.pollingStreamDisposable) {
         this.pollingStreamDisposable.unsubscribe();
         this.pollingStreamDisposable = undefined;
