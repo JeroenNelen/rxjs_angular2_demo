@@ -60,14 +60,14 @@ export class RedditComponent implements OnInit {
       // Get the newest threads
       .flatMap((responseJSON:any) => getNewestThreads(responseJSON))
 
-      // Only trigger if comments changed
-      .distinctUntilChanged()
-
       // Don't show NSFW threads
       .filter((thread:any) => thread.data.over_18 === false)
 
       // Only show threads that dont have negative upvotes
       .filter((thread:any) => thread.data.ups >= 0)
+
+      // Only trigger if comments changed
+      .distinctUntilChanged()
 
       // Show a maximum of 10 threads
       .take(10)
