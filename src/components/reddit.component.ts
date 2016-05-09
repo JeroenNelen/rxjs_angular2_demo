@@ -46,7 +46,13 @@ export class RedditComponent implements OnInit {
   ngOnInit() {
 
     // Fetch stream
-    let fetchStream = this._http.get(API_URL_NEW).retryWhen((errors) => errors.delay(2000))
+    let fetchStream =
+
+      // Get newest threads
+      this._http.get(API_URL_NEW)
+
+      // Re-try after 2 seconds when there is no internet connection
+      .retryWhen((errors) => errors.delay(2000))
 
       // Convert to JSON
       .map((response:Response) => response.json())
@@ -84,12 +90,11 @@ export class RedditComponent implements OnInit {
       .subscribe(() => {
         if (this.pollingStreamDisposable) {
           this.pollingStreamDisposable.unsubscribe();
+          console.log('Polling ended');
           this.pollingStreamDisposable = undefined;
         } else {
-          this.pollingStreamDisposable = pollingStream.subscribe((threads:Array<any>) => {
-            console.log(threads);
-            this.threads = threads;
-          });
+          console.log('Polling started');
+          this.pollingStreamDisposable = pollingStream.subscribe((threads:Array<any>) => this.threads = threads);
         }
       });
   }
