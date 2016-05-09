@@ -9,3 +9,7 @@ Demo application for the MJR session about Reactive Programming and Observables
 - `npm install -g typings webpack webpack-dev-server`
 - `typings install`
 - `npm start`
+
+## Slides
+
+https://goo.gl/4Y4TWA
