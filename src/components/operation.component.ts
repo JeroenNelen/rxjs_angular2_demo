@@ -1,4 +1,5 @@
-import {Component, OnInit, EventEmitter} from 'angular2/core'
+import 'rxjs/Rx';
+import {Component, OnInit, EventEmitter} from 'angular2/core';
 import {Http, HTTP_PROVIDERS} from "angular2/http";
 import {Observable} from 'rxjs/Rx'
 import 'rxjs/add/operator/sample';
@@ -23,7 +24,7 @@ export class OperationComponent implements OnInit {
     // map vs flatmap
 
     //######################################################
-    // debounce
+    // debounceTime
 
     //######################################################
     // distinct, filter, count, last
@@ -85,7 +86,7 @@ export class OperationComponent implements OnInit {
     //######################################################
     // debounce
     // let debounceSource = Observable.interval(100).take(20);
-    // let debounceSource = Observable.interval(100).take(20).debounce(v => Observable.timer(300));
+    // let debounceSource = Observable.interval(100).take(20).debounceTime(300);
     // debounceSource.subscribe(value => console.log("debounce: ", value));
 
     //######################################################
@@ -134,7 +135,7 @@ export class OperationComponent implements OnInit {
   ngOnInit() {
     // debounce click
     // let button = document.getElementById('tester');
-    // let fromEventObservable = Observable.fromEvent(button,'click').debounce(v => Observable.timer(300));
+    // let fromEventObservable = Observable.fromEvent(button,'click').debounceTime(300);
     // fromEventObservable.subscribe(value => console.log("from click event: ",value));
   }
 }
