@@ -61,8 +61,8 @@ export class RedditComponent implements OnInit {
       // Don't show NSFW threads
       .filter((thread:any) => thread.data.over_18 === false)
 
-      // Only show threads with atleast 1 upvote
-      .filter((thread:any) => thread.data.ups > 0)
+      // Only show threads that dont have negative upvotes
+      .filter((thread:any) => thread.data.ups >= 0)
 
       // Show a maximum of 5 threads
       .take(5)
