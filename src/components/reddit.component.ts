@@ -39,7 +39,6 @@ const getNewestThreads = (responseJSON) => responseJSON.data.children;
 export class RedditComponent implements OnInit {
 
   threads:Array<any> = [];                                // Contains an array of threads, each thread has a property 'data' which contains information about the thread
-  buttonClicked:EventEmitter<any> = new EventEmitter();   // Emits an observable stream when the button is clicked -- you can subscribe to this!
   pollingStreamDisposable = undefined;                    // I wouldn't know what you would use this for..
 
   constructor(@Inject(Http) private _http:Http) {}        // Inject Http service, we will need it to do http calls using this._http.get(URL)
@@ -47,9 +46,6 @@ export class RedditComponent implements OnInit {
   ngOnInit() {
 
     // Write code here
-
-    // Button clicked stream
-    this.buttonClicked.subscribe(() => { /* Is called when the button is clicked */ });
   }
 
 }
