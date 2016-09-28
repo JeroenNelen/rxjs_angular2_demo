@@ -19,7 +19,7 @@ const makeURL = (query) => `${BASE_URL}?q=${query}&part=snippet&key=${API_TOKEN}
 <input type="text" placeholder="search youtube..." class="form-control" [ngFormControl]="searchInput">
 <br>
 <div class="row">
-  <div class="col-sm-6 col-md-4 col-lg-3 typeahead-tile" *ngFor="#video of videos | async" (click)="visit()">
+  <div class="col-sm-6 col-md-4 col-lg-3 typeahead-tile" *ngFor="#video of videos" (click)="visit()">
     <img [src]="video.snippet.thumbnails.medium.url" class="img-responsive thumbnail">
     <p>{{ video.snippet.title }}</p>
   </div>
@@ -67,7 +67,45 @@ export class TypeaheadComponent {
 
 
 
-    
+
+
+
+
+
+
+
+
+
+
+
+    // let subscriber$ = this.searchInput.valueChanges
+    //   .debounceTime(300)
+    //   .do(() => {
+    //     this.videos = undefined;
+    //   })
+    //   .filter(value => value.trim().length > 0)
+    //   .switchMap(value => this._http.get(makeURL(value)))
+    //   .map(response => response.json())
+    //
+    //
+    // subscriber$.subscribe(response => {
+    //   console.log('updated videos');
+    //   this.videos = response.items;
+    //   console.log(response);
+    // });
+
+
+
+
+
+
+
+
+
+
+
+
+
     // this.videos = this.searchInput.valueChanges
     //   .debounceTime(200)
     //   .map(query => makeURL(query))

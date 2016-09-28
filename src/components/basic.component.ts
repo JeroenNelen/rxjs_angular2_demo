@@ -3,6 +3,7 @@ import {Http, HTTP_PROVIDERS} from "angular2/http";
 import "rxjs/Rx";
 import {Observable} from "rxjs/Rx";
 
+const SLOW_API_URL = 'http://slowwly.robertomurray.co.uk/delay/5000/url/http://www.google.co.uk';
 const API_URL = 'http://jsonplaceholder.typicode.com/posts';
 
 @Component({
@@ -14,19 +15,6 @@ const API_URL = 'http://jsonplaceholder.typicode.com/posts';
 export class BasicComponent {
 
   constructor(@Inject(Http) private _http: Http) {
-
-
-
-
-
-
-    
-
-
-
-
-
-
 
 
 
