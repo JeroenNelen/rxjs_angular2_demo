@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import {BasicComponent} from "./components/basic.component";
 import {TypeaheadComponent} from "./components/typeahead.component";
-// import {GithubComponent} from "./components/github.component";
+import {GithubComponent} from "./components/github.component";
 import {CreationComponent} from "./components/creation.component";
 import {OperationComponent} from "./components/operation.component";
 import {HotvscoldComponent} from "./components/hotvscold.component";
@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'operation',     component: OperationComponent },
   { path: 'hotvscold',     component: HotvscoldComponent },
   { path: 'typeahead',     component: TypeaheadComponent },
-  // { path: 'github',     component: GithubComponent },
+  { path: 'github',     component: GithubComponent },
   { path: 'reddit',     component: RedditComponent }
 ];
 

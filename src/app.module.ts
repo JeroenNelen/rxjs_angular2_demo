@@ -14,7 +14,7 @@ import {App} from './app.component'
 // components
 import {BasicComponent} from "./components/basic.component";
 import {TypeaheadComponent} from "./components/typeahead.component";
-// import {GithubComponent} from "./components/github.component";
+import {GithubComponent} from "./components/github.component";
 import {CreationComponent} from "./components/creation.component";
 import {OperationComponent} from "./components/operation.component";
 import {HotvscoldComponent} from "./components/hotvscold.component";
@@ -30,7 +30,7 @@ import {
     App,
     BasicComponent,
     TypeaheadComponent,
-    // GithubComponent,
+    GithubComponent,
     CreationComponent,
     OperationComponent,
     HotvscoldComponent,

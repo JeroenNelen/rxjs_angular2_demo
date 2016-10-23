@@ -15,7 +15,7 @@ import {Component} from '@angular/core'
             <li><a routerLink="/operation">Operations</a></li>
             <li><a routerLink="/hotvscold">Hot vs cold</a></li>
             <li><a routerLink="/typeahead">Typeahead</a></li>
-            <li><a routerLink="/github">Github</a></li>
+            <!--<li><a routerLink="/github">Github</a></li>-->
             <li><a routerLink="/reddit">Reddit</a></li>
           </ul>
         </div>

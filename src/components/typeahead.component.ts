@@ -1,13 +1,8 @@
-import {Component, Inject} from '@angular/core'
-// import {Control} from '@angular/common'
-// import {Observable, Subject} from 'rxjs/Rx'
+import {Component} from '@angular/core'
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import {Http, Response} from "@angular/http";
-import {
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
+
 
 const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
 const API_TOKEN = 'AIzaSyAJk1xUI72YYfBMgEc84gjHUX-k2AN6-B0';
@@ -27,6 +22,7 @@ const makeURL = (query) => `${BASE_URL}?q=${query}&part=snippet&key=${API_TOKEN}
         </div>
       </div>`
 })
+
 export class TypeaheadComponent {
   private searchTermStream = new Subject<string>();
 
