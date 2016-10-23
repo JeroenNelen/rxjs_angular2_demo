@@ -44,58 +44,36 @@ export class RedditComponent implements OnInit {
   ngOnInit() {
 
     // Fetch stream
-    let fetchStream =
+    // let fetchStream =
 
       // Get newest threads
-      this.http.get(API_URL_NEW)
 
       // Re-try after 2 seconds when there is no internet connection
-      .retryWhen((errors) => errors.delay(2000))
 
       // Convert to JSON
-      .map((response:any) => response.json())
 
       // Get the newest threads
-      .flatMap((responseJSON:any) => getNewestThreads(responseJSON))
 
       // Don't show NSFW threads
-      .filter((thread:any) => thread.data.over_18 === false)
 
       // Only show threads that dont have negative upvotes
-      .filter((thread:any) => thread.data.ups >= 0)
 
       // Show a maximum of 10 threads
-      .take(10)
 
       // Group together and emit every 5 seconds
-      .bufferTime(5000)
 
       // Only trigger if comments changed
-      .distinctUntilChanged();
 
     // Ticker stream
     let intervalStream = Observable.interval(5000);
 
-    // Polling stream = timer + fetch combined to create a ticker
-    // fetchStream.merge instead of Observable.merge to make fetchStream trigger intially
-    let pollingStream = fetchStream.merge(intervalStream.switchMap(() => fetchStream));
+    // Polling stream = timer + fetch combined to create a ticker, combine streams
+    // let pollingStream =
 
     // Button clicked stream
     let buttonElem = document.getElementById('button');
-    Observable.fromEvent(buttonElem, 'click')
+    // write an option to start and stop the polling
 
-      .debounceTime(300)
-
-      .subscribe(() => {
-        if (this.pollingStreamDisposable) {
-          this.pollingStreamDisposable.unsubscribe();
-          console.log('Polling ended');
-          this.pollingStreamDisposable = undefined;
-        } else {
-          console.log('Polling started');
-          this.pollingStreamDisposable = pollingStream.subscribe((threads:Array<any>) => this.threads = threads);
-        }
-      });
   }
 
 }

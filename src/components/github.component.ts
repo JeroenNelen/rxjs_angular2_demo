@@ -43,43 +43,6 @@ export class GithubComponent {
   }
 
   followers: Observable<any> = this.searchTermStream
-    .do(x => console.log("value changes: ",x))
-    // .debounceTime(300)
-    // .do(x => console.log("after debounce: ", x))
-    // .filter(v => v.length > 0)
-    // .do(x => console.log("after filter: ", x))
-    // .distinctUntilChanged()
-    // .do(x => console.log("after distinct: ",x))
-    // .map(query => makeURL(query))
-    // .do(x => console.log("after makeURL ", x))
-    // .switchMap(url => this.http.get(url).retryWhen( errors => errors.delay(2000)))
-    // .do(x => console.log("after first switchmap: ", x))
-    // .map((res: Response) => res.json())
-    // .do(x => console.log("after first map: ", x))
-    // // .filter(v => v.total_count > 0)
-    // .map(response => {
-    //   this.match = response.items[0];
-    //   return response.items[0].followers_url;
-    // })
-    // .do(x => console.log("after getting followers_url: ", x))
-    // .switchMap(url => this.http.get(url))
-    // .do(x => console.log("after second switchmap: ", x))
-    // .map((res: Response) => res.json().splice(0,3))
-    // .do(x => console.log("after second map: ", x));
-    // .subscribe(v => this.followers = v, e => console.log("error: ", e));
+    .do(x => console.log("value changes: ",x));
 }
 
-
-// this.searchInput.valueChanges
-//   .debounceTime(200)
-//   .map(query => makeURL(query))
-//   .switchMap(url => this._http.get(url)
-//     .retryWhen( errors => errors.scan((errorCount, err) => {
-//       console.log("status: ", err.status);
-//       if(errorCount >= 5 || err.status === 422) {throw err};
-//       return errorCount + 1;
-//     }, 0).delay(2000)))
-//   .map((res: Response) => res.json())
-//   .map(response => response.items[0].followers_url)
-//   .subscribe(v => console.log(v), e => {console.log("error: ", e); this.errorMessage = JSON.parse(e._body).message;});
-// }

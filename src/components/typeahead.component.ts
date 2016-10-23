@@ -38,16 +38,15 @@ export class TypeaheadComponent {
     window.open(YOUTUBE_VIDEO_PREFIX + videoId);
   }
 
-  videos: Observable<any[]> = this.searchTermStream
-    .do(x => console.log("before debounce: ",x))
-    .debounceTime(200)
-    .do(x => console.log("after debounce: ",x))
-    .map(query => makeURL(query))
-    .do(x => console.log("after makeuRL: ",x))
-    .switchMap(url => this.http.get(url))
-    .do(x => console.log("after http.get: ",x))
-    .map((res: Response) => res.json())
-    .do(x => console.log("after res.json: ",x))
-    .map(response => response.items);
+  // videos: Observable<any[]> = this.searchTermStream
+    // debounce 200 ms
+
+    // create a query with the typed input
+
+    // use the resulting url to do a http call, switchMap might be handy
+
+    // map the result to json
+
+    // eventuell get the items
 
 }
