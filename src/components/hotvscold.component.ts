@@ -1,5 +1,5 @@
-import {Component} from 'angular2/core'
-import {Http, HTTP_PROVIDERS} from "angular2/http";
+import {Component} from '@angular/core'
+import {Http} from "@angular/http";
 import {Observable} from 'rxjs/Rx'
 import 'rxjs/add/operator/sample';
 import 'rxjs/add/operator/distinct';
@@ -26,32 +26,9 @@ export class HotvscoldComponent {
 
     // second subscriber after setTimeout
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // ################## cold
-    // let counter = Observable.interval(1000)
-    //   .take(10);
+    let counter = Observable.interval(1000)
+      .take(10);
 
     // ################## hot
     // let counter = Observable.interval(1000)
@@ -59,10 +36,10 @@ export class HotvscoldComponent {
     //   .publish()
     //   .refCount();
 
-    // counter.subscribe(v => console.log("first: ", v));
-    //
-    // setTimeout(() => {
-    //   counter.subscribe(v => console.log("second: ", v));
-    // }, 5000);
+    counter.subscribe(v => console.log("first: ", v));
+
+    setTimeout(() => {
+      counter.subscribe(v => console.log("second: ", v));
+    }, 5000);
   }
 }

@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit, EventEmitter} from 'angular2/core'
-import {Http, HTTP_PROVIDERS, Response} from "angular2/http";
+import {Component, Inject, OnInit, EventEmitter} from '@angular/core'
+import {Http} from "@angular/http";
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Rx";
 
@@ -7,7 +7,6 @@ const API_URL_NEW = 'https://api.reddit.com/new?dept=1&sort=new';
 const getNewestThreads = (responseJSON) => responseJSON.data.children;
 @Component({
   selector: 'reddit',
-  providers: [HTTP_PROVIDERS],
   template: `<h2>Reddit</h2>
 
 <p>
@@ -26,7 +25,7 @@ const getNewestThreads = (responseJSON) => responseJSON.data.children;
           <th>Subreddit</th>
         </tr>
       </thead>
-      <tr *ngFor="#thread of threads">
+      <tr *ngFor="let thread of threads">
         <td>{{ thread.data.author }}</td>
         <td>{{ thread.data.title }}</td>
         <td>{{ thread.data.ups }}</td> 
@@ -40,45 +39,9 @@ export class RedditComponent implements OnInit {
   threads:Array<any> = [];
   pollingStreamDisposable = undefined;
 
-  constructor(@Inject(Http) private _http:Http) {}
+  constructor(private http: Http) {}
 
   ngOnInit() {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // Fetch stream
     // let fetchStream =

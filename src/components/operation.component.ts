@@ -1,6 +1,6 @@
 import 'rxjs/Rx';
-import {Component, OnInit, EventEmitter} from 'angular2/core';
-import {Http, HTTP_PROVIDERS} from "angular2/http";
+import {Component, OnInit, EventEmitter} from '@angular/core';
+// import {Http,} from "@angular/http";
 import {Observable} from 'rxjs/Rx'
 import 'rxjs/add/operator/sample';
 import 'rxjs/add/operator/distinct';
@@ -37,28 +37,9 @@ export class OperationComponent implements OnInit {
     //######################################################
     // merge
 
-
     // combineLatest, startWith
 
-
-
-
     // show debounce on click
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -70,18 +51,18 @@ export class OperationComponent implements OnInit {
     //######################################################
     // map vs flatmap
 
-    // synchroon
+    // // synchroon
     // let source = Observable.interval(100).take(10);
-
-    // asynchroon via timer
+    //
+    // // asynchroon via timer
     // let source = Observable.interval(100).take(10)
     //   .map(v => Observable.timer(500).map(() => v)); // [object object] = observable
 
     // flatMap for the rescue
-    // let source = Observable.interval(100).take(10)
-    //   .flatMap(v => Observable.timer(500).map(() => v));
+    let source = Observable.interval(100).take(10)
+      .flatMap(v => Observable.timer(500).map(() => v));
     //
-    // source.subscribe(value => console.log(value.toString()));
+    source.subscribe(value => console.log(value.toString()));
 
     //######################################################
     // debounce
@@ -134,8 +115,8 @@ export class OperationComponent implements OnInit {
 
   ngOnInit() {
     // debounce click
-    // let button = document.getElementById('tester');
-    // let fromEventObservable = Observable.fromEvent(button,'click').debounceTime(300);
-    // fromEventObservable.subscribe(value => console.log("from click event: ",value));
+    let button = document.getElementById('tester');
+    let fromEventObservable = Observable.fromEvent(button,'click').debounceTime(300);
+    fromEventObservable.subscribe(value => console.log("from click event: ",value));
   }
 }

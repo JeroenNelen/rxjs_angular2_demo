@@ -1,117 +1,57 @@
-import {Component, Inject} from 'angular2/core'
-import {Control} from 'angular2/common'
-import {Observable} from 'rxjs/Rx'
-import {Http, Response, HTTP_PROVIDERS} from "angular2/http";
+import {Component, Inject} from '@angular/core'
+// import {Control} from '@angular/common'
+// import {Observable, Subject} from 'rxjs/Rx'
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import {Http, Response} from "@angular/http";
+import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
 
 const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
 const API_TOKEN = 'AIzaSyAJk1xUI72YYfBMgEc84gjHUX-k2AN6-B0';
+const YOUTUBE_VIDEO_PREFIX = 'https://www.youtube.com/watch?v=';
 
 const makeURL = (query) => `${BASE_URL}?q=${query}&part=snippet&key=${API_TOKEN}`
 
 @Component({
   selector: 'typeahead',
-  providers: [HTTP_PROVIDERS],
-  style: `.typeahead-tile {
-  height: 200px;
-  text-align: center;
-}`,
   template: `<h2>Search youtube</h2>
-<input type="text" placeholder="search youtube..." class="form-control" [ngFormControl]="searchInput">
-<br>
-<div class="row">
-  <div class="col-sm-6 col-md-4 col-lg-3 typeahead-tile" *ngFor="#video of videos" (click)="visit()">
-    <img [src]="video.snippet.thumbnails.medium.url" class="img-responsive thumbnail">
-    <p>{{ video.snippet.title }}</p>
-  </div>
-</div>`
+      <input type="text" placeholder="search youtube..." #term class="form-control" (keyup)="search(term.value)">
+      <br>
+      <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-3 typeahead-tile" *ngFor="let video of videos | async" (click)="visit(video.id.videoId)">
+          <img [src]="video.snippet.thumbnails.medium.url" class="img-responsive thumbnail">
+          <p>{{ video.snippet.title }}</p>
+        </div>
+      </div>`
 })
 export class TypeaheadComponent {
+  private searchTermStream = new Subject<string>();
 
-  videos: Observable<any []>;
-  searchInput = new Control();
-
-  constructor(@Inject(Http) private _http: Http) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // let subscriber$ = this.searchInput.valueChanges
-    //   .debounceTime(300)
-    //   .do(() => {
-    //     this.videos = undefined;
-    //   })
-    //   .filter(value => value.trim().length > 0)
-    //   .switchMap(value => this._http.get(makeURL(value)))
-    //   .map(response => response.json())
-    //
-    //
-    // subscriber$.subscribe(response => {
-    //   console.log('updated videos');
-    //   this.videos = response.items;
-    //   console.log(response);
-    // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // this.videos = this.searchInput.valueChanges
-    //   .debounceTime(200)
-    //   .map(query => makeURL(query))
-    //   .switchMap(url => this._http.get(url))
-    //   .map((res: Response) => res.json())
-    //   .map(response => response.items);
-
+  constructor(private http: Http) {
   }
+
+  search(term: string) {
+    console.log('this is typed: ', term);
+    this.searchTermStream.next(term);
+  }
+
+  visit(videoId: string) {
+    window.open(YOUTUBE_VIDEO_PREFIX + videoId);
+  }
+
+  videos: Observable<any[]> = this.searchTermStream
+    .do(x => console.log("before debounce: ",x))
+    .debounceTime(200)
+    .do(x => console.log("after debounce: ",x))
+    .map(query => makeURL(query))
+    .do(x => console.log("after makeuRL: ",x))
+    .switchMap(url => this.http.get(url))
+    .do(x => console.log("after http.get: ",x))
+    .map((res: Response) => res.json())
+    .do(x => console.log("after res.json: ",x))
+    .map(response => response.items);
+
 }
